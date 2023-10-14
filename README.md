@@ -2,4 +2,6 @@
 
 ## Command line
 1) run server   
-```npm start```
+```
+npm start
+```
