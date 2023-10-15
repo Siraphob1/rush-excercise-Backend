@@ -7,17 +7,15 @@ const helmet = require('helmet');
 const port = process.env.PORT || 3500;
 
 //3rd middlewares for Cross-origin resource sharing website
-app.use(cors());
+app.use(cors(corsOptions));
 
 
-//built-in middlewares 
-//for handle urlencoded form data
+//built-in middlewares for handle urlencoded form data
 app.use(express.urlencoded({extended: false}));
-//for json
+//built-in middlewares for json
 app.use(express.json());
-//for hide x-powered
+//built-in middlewares for hide x-powered
 app.disable('x-powered-by');
-
 
 //3rd middlewares for secure setting http response header
 app.use(helmet());
@@ -26,10 +24,11 @@ app.use(helmet());
 
 
 
+//routes
 app.get('/' , (req,res)=>{
     res.json('Welcome to API RUSH excercise ')
 })
-
+app.use('/signup', require('./routes/signup.js'));
 
 
 
