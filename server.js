@@ -4,11 +4,18 @@ const app = express();
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const helmet = require('helmet');
+
+const mongoose = require('mongoose');
+const connectDBCompass = require('./Test/dbConnectCompass');
+
 const port = process.env.PORT || 3500;
+
+// Connect to MongoDB
+connectDBCompass();
+
 
 //3rd middlewares for Cross-origin resource sharing website
 app.use(cors(corsOptions));
-
 
 //built-in middlewares for handle urlencoded form data
 app.use(express.urlencoded({extended: false}));
@@ -30,9 +37,10 @@ app.get('/' , (req,res)=>{
 })
 app.use('/signup', require('./routes/signup.js'));
 
-
-
-app.listen(port , ()=>{
-    console.log(`Server start at http://localhost:${port}`)
+mongoose.connection.once('open', ()=>{
+    console.log('Connected to MongoDB');
+    app.listen(port , ()=>{console.log(`Server start at http://localhost:${port}`);
+    })
 })
+
 
