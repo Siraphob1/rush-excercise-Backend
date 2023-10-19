@@ -32,7 +32,6 @@ app.use(cookieParser());
 
 
 
-
 //routes public
 app.get('/' , (req,res)=>{
     res.json('Welcome to API RUSH excercise ')
@@ -40,8 +39,9 @@ app.get('/' , (req,res)=>{
 app.use('/signup', require('./routes/signup.js'));
 app.use('/login', require('./routes/login.js'));
 app.use('/refresh' , require('./routes/refresh.js'));
+app.use('/logout', require('./routes/logout.js'));
 
-//custom middlewares
+//custom middlewares for check JWT 
 app.use(verifyJWT)
 
 //routes private
