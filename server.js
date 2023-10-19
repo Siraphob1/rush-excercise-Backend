@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
+const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const connectDBCompass = require('./Test/dbConnectCompass');
@@ -16,15 +17,18 @@ connectDBCompass();
 
 //3rd middlewares for Cross-origin resource sharing website
 app.use(cors(corsOptions));
+
 //built-in middlewares for handle urlencoded form data
 app.use(express.urlencoded({extended: false}));
 //built-in middlewares for json
 app.use(express.json());
 //built-in middlewares for hide x-powered
 app.disable('x-powered-by');
+
 //3rd middlewares for secure setting http response header
 app.use(helmet());
-
+//3rd middlwares for cookies
+app.use(cookieParser());
 
 
 
