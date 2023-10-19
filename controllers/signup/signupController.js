@@ -1,4 +1,3 @@
-
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userModel = require('../../model/userSchema');
@@ -18,10 +17,10 @@ const signupController = async (req , res) =>{
     //check username duplicate in DB
     const queryUsername = {username: username}
     const duplicateUsername = await userModel.findOne(queryUsername);
-    if(duplicateUsername) return res.status(409).json({"message":'this username has already been signup'});
+    if(duplicateUsername) return res.status(409).json({"message":'This username is already in use.'});
 
     try {
-        //encrypt passwor and userid
+        //encrypt password and userid
         const hashPassword = await bcrypt.hash(password , 12);
         const hashUserid = await bcrypt.hash(username,12);
 
@@ -39,7 +38,7 @@ const signupController = async (req , res) =>{
         const emailToken = jwt.sign(
             {"userid": hashUserid},                 //payload
             process.env.EMAIL_TOKEN_SECRET,         //secret key
-            {expiresIn: '50s'}                       //option expire
+            {expiresIn: '60s'}                       //option expire for this Token
         );
         // console.log(emailToken);      
         
@@ -76,7 +75,7 @@ const signupController = async (req , res) =>{
         });
 
 
-        res.status(201).json({"message": `username:${username} signup success`});
+        // res.status(201).json({"message": `username:${username} signup success`});
     } catch (error) {
         res.status(500).json({"message":error.message})
     }
