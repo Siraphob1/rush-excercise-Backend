@@ -24,14 +24,15 @@ const loginController = async (req , res)=>{
         const accessToken = jwt.sign(
             {"username": userFind.username},
             process.env.ACCESS_TOKEN_SECRET,
-            {expiresIn: '15s'}
+            {expiresIn: '30s'}
         );
         //create refreshToken for use request new accessToken
         const refreshToken = jwt.sign(
             {"username": userFind.username},
             process.env.REFRESH_TOKEN_SECRET,
-            {expiresIn: '1h'}  //1h every 1hour force logout            
+            {expiresIn: '30s'}  //1h every 1hour force logout            
         );
+        //console.log(refreshToken)
 
         //save refreshToken when login
         const query = {email: email};
