@@ -1,11 +1,12 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userModel = require('../../model/userSchema');
-const messageVerifyEmail = require('../../model/email/verifysignup');
+const messageVerifyEmail = require('../../model/email/verifySignup/verifysignup');
 const nodemailer = require("nodemailer");
 
 
 const signupController = async (req , res) =>{
+    //username , email and password was attached in request body
     const {username , email ,password} = req.body;
     if(!username || !email || !password) return res.status(400).json({"message":"username , email and password are required"});
     
@@ -43,8 +44,8 @@ const signupController = async (req , res) =>{
         // console.log(emailToken);      
         
         
-        //create url for verify
-        const urlVerify = `http://localhost:${process.env.PORT}/signup/verify?token=${emailToken}`
+        //create url for Signup verify
+        const urlVerify = `${process.env.BACKENDWEBHOST}/signup/verify?token=${emailToken}`
 
         //Create tranpoter
         const transporter = nodemailer.createTransport({
@@ -77,7 +78,7 @@ const signupController = async (req , res) =>{
 
         // res.status(201).json({"message": `username:${username} signup success`});
     } catch (error) {
-        res.status(500).json({"message":error.message})
+        res.status(500).json({"error":error.message})
     }
 
 }
