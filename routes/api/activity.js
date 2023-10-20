@@ -1,8 +1,12 @@
 const express = require('express');
-const userController = require('../../controllers/user/userController');
+const activityController = require('../../controllers/activity/activityController');
 const router = express.Router();
 
-router.get('/:userid', userController);
+// create 
+router.get('/:userid', activityController);
+router.put('/:userid', activityController);
+router.post('/:userid', activityController);
+router.delete('/:userid', activityController);
 
 
 module.exports = router;
