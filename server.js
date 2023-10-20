@@ -27,7 +27,7 @@ app.disable('x-powered-by');
 
 //3rd middlewares for secure setting http response header
 app.use(helmet());
-//3rd middlwares for cookies
+//3rd middlwares for handle cookies
 app.use(cookieParser());
 
 
@@ -40,6 +40,7 @@ app.use('/signup', require('./routes/signup.js'));
 app.use('/login', require('./routes/login.js'));
 app.use('/refresh' , require('./routes/refresh.js'));
 app.use('/logout', require('./routes/logout.js'));
+app.use('/forgotpassword' , require('./routes/forgotpassword.js'));
 
 //custom middlewares for check JWT 
 app.use(verifyJWT)
