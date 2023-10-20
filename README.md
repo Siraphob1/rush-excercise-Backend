@@ -19,9 +19,9 @@ npm start
 ### HTTP Status
  Successful responses 
 ```
-200 
-201 create and save to Database success
-204 success and no content
+200 OK             "The request succeeded"
+201 Created        "The request succeeded. A new resource was created and saved to the database successfully."
+204 No Content     "The request succeeded and no content"
 ```
 
 Client error responses
