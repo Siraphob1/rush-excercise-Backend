@@ -33,7 +33,7 @@ const verifyController = async (req , res) =>{
         const query = {userid: userid};
         const updateVerify = {isverify: true};
         const resultUpdate = await userModel.findOneAndUpdate(query , updateVerify , {new:true}); 
-        const urlVerifySuccess = 'http://localhost:5173/';
+        const urlVerifySuccess = `${process.env.FRONTENDHOST}`;
         res.status(204).redirect(urlVerifySuccess);
         
     } catch (error) {
