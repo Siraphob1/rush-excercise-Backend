@@ -12,7 +12,7 @@ const loginController = async (req , res)=>{
     if(!userFind) return res.sendStatus(401); //Unauthorized
 
     //user has verify email
-    if(!userFind.isverify) return res.sendStatus(401); //Unauthorized
+    if(!userFind.isVerify) return res.sendStatus(401); //Unauthorized
 
     // compare password
     const match = await bcrypt.compare(password , userFind.password);
