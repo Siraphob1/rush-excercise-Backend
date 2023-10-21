@@ -39,7 +39,7 @@ const signupController = async (req , res) =>{
 
         // create JWT
         const emailToken = jwt.sign(
-            {"userid": hashUserid},                 //payload
+            {"userID": hashUserid},                 //payload
             process.env.EMAIL_TOKEN_SECRET,         //secret key
             {expiresIn: '60s'}                       //option expire for this Token
         );
