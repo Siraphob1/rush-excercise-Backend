@@ -10,17 +10,20 @@ const signupController = async (req , res) =>{
     const {username , email ,password , createDate} = req.body;
     if(!username || !email || !password || !createDate) return res.status(400).json({"message":"username , email and password are required"});
     
-    //check email duplicate in DB
-    const queryEmail = {email:email};
-    const duplicateEmail = await userModel.findOne(queryEmail);    
-    if(duplicateEmail) return res.status(409).json({"message":'this email address has already been signup'});
-
-    //check username duplicate in DB
-    const queryUsername = {username: username}
-    const duplicateUsername = await userModel.findOne(queryUsername);
-    if(duplicateUsername) return res.status(409).json({"message":'This username is already in use.'});
+    
 
     try {
+
+        //check email duplicate in DB
+        const queryEmail = {email:email};
+        const duplicateEmail = await userModel.findOne(queryEmail);    
+        if(duplicateEmail) return res.status(409).json({"message":'this email address has already been signup'});
+
+        //check username duplicate in DB
+        const queryUsername = {username: username}
+        const duplicateUsername = await userModel.findOne(queryUsername);
+        if(duplicateUsername) return res.status(409).json({"message":'This username is already in use.'});
+
         //encrypt password and userid
         const hashPassword = await bcrypt.hash(password , 12);
         const hashUserid = await bcrypt.hash(username,12);
