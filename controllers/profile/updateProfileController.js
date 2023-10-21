@@ -1,5 +1,12 @@
 const userModel = require('../../model/userSchema');
 
+const tryParsInt = ( dataString ) =>{
+    dataString = typeof dataString === "string" ? parseInt(dataString) 
+                                                : typeof dataString === "number"    ? dataString
+                                                                                    : undefined    
+    return dataString
+}
+
 const updateProfileController = async (req , res) =>{
 
     //userIDwas attached in request params
@@ -10,9 +17,11 @@ const updateProfileController = async (req , res) =>{
     let {imageURL , username , displayName , age , height , weight , caption} = req.body;
     if(!imageURL && !username && !displayName && !age && !height && !weight && !caption) return res.sendStatus(400);
 
-    age = typeof age === "string" ? parseInt(age):null
-    console.log(`age: ${typeof age}`)
     
+    //if type not equal number try convert type to number    
+    age = tryParsInt(age);
+    height = tryParsInt(height);
+    weight = tryParsInt(weight);
 
     try {
 
@@ -23,8 +32,7 @@ const updateProfileController = async (req , res) =>{
         console.log("before update");
         console.log(userFind);
 
-        //format data for updateData user 
-        tryFormatData();
+        //format data for updateData user         
         const updateUserData = {
             imageURL: imageURL? imageURL : userFind.imageURL,
             username: username? username : userFind.username,
@@ -35,14 +43,9 @@ const updateProfileController = async (req , res) =>{
             caption: caption ? caption : userFind.caption
         }
        
-        const resultUpdate = await userModel.findOneAndUpdate(queryuserID ,updateUserData , {new:true});   
-        console.log("after update")
-        console.log(resultUpdate)
-        if(!resultUpdate) return res.sendStatus(500);       //not found
-
-         
-        
-        res.status(200).json({"userProfile":updateUserData});
+        //update data user
+        const resultUpdate = await userModel.findOneAndUpdate(queryuserID ,updateUserData , {new:true});          
+        res.status(200).json({"userData":updateUserData});
     } catch (error) {        
         res.status(500).json({"error":error.message})
     }
