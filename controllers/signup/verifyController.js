@@ -5,7 +5,7 @@ const verifyController = async (req , res) =>{
     const {token} = req.query;
     if(!token) return res.status(401).json({"message":"token error"});
 
-    let userid = '';
+    let userID = '';
     let isError = false;
     //evaluate JWT
     jwt.verify(
@@ -13,7 +13,7 @@ const verifyController = async (req , res) =>{
         process.env.EMAIL_TOKEN_SECRET,
         (err , decodeed)=>{
             if(!err){
-                userid = decodeed.userid;                
+                userID = decodeed.userID;                
             }
             else{
                 return isError = true;
@@ -24,13 +24,13 @@ const verifyController = async (req , res) =>{
     if(isError) return res.sendStatus(403);
     try {
         //find user
-        const queryUserid = {userID:userid};
+        const queryUserid = {userID:userID};
         const userFind = await userModel.findOne(queryUserid);
         if(!userFind) return res.sendStatus(404)    //not found user
 
         //verify first time ?
         if(userFind.isVerify)   return res.status(409).json({"message": "this email address has already been verify"})
-        const query = {userID: userid};
+        const query = {userID: userID};
         const updateVerify = {isVerify: true};
         const resultUpdate = await userModel.findOneAndUpdate(query , updateVerify , {new:true}); 
         const urlVerifySuccess = `${process.env.FRONTENDHOST}`;
