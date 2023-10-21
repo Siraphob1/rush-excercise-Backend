@@ -13,7 +13,7 @@ const resetPWDController = async (req ,res) =>{
     const {token} = req.query;
     if(!token) return res.sendStatus(400);
 
-    let userid = '';
+    let userID = '';
     let isError = false;
    //evaluate JWT
     jwt.verify(
@@ -21,7 +21,7 @@ const resetPWDController = async (req ,res) =>{
         process.env.EMAIL_TOKEN_SECRET,
         (err , decodeed)=>{
             if(!err){
-                userid = decodeed.userid;                
+                userID = decodeed.userID;                
             }
             else{
                 return isError = true;
@@ -35,7 +35,7 @@ const resetPWDController = async (req ,res) =>{
     try {
 
         //find user
-        const queryUserid = {userid:userid};
+        const queryUserid = {userID:userID};
         const userFind = await userModel.findOne(queryUserid);
         if(!userFind) return res.sendStatus(404);    //not found user
 

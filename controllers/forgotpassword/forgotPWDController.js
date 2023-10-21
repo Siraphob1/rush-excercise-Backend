@@ -18,7 +18,7 @@ const forgotPWDController = async (req ,res) =>{
 
         // create JWT
         const emailToken = jwt.sign(
-            {"userid": userFind.userid},                 //payload
+            {"userID": userFind.userID},                 //payload
             process.env.EMAIL_TOKEN_SECRET,         //secret key
             {expiresIn: '60s'}                       //option expire for this Token
         );
