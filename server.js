@@ -31,7 +31,6 @@ app.use(helmet());
 app.use(cookieParser());
 
 
-
 //routes public
 app.get('/' , (req,res)=>{
     res.json('Welcome to API RUSH excercise ')
@@ -42,14 +41,23 @@ app.use('/refresh' , require('./routes/refresh.js'));
 app.use('/logout', require('./routes/logout.js'));
 app.use('/forgotpassword' , require('./routes/forgotpassword.js'));
 
+
 //custom middlewares for check JWT 
-app.use(verifyJWT)
+// app.use(verifyJWT)
+
 
 //routes private
-app.use('/api/activity' , require('./routes/api/activity.js'))
+app.use('/api/activity' ,verifyJWT , require('./routes/api/activity.js'))
+// app.use('/api/dashboard', require('./routes/api/dashboard.js'))                  not finish
+app.use('/profile', require('./routes/profile.js'))
 
+
+//route not found
+app.use('/', require('./routes/notfound.js'));
+
+//start server when connect DB success
 mongoose.connection.once('open', ()=>{
-    console.log('Connected to MongoDB');
+    console.log('Connected to MongoDB firstime');
     app.listen(port , ()=>{console.log(`Server start at http://localhost:${port}`);
     })
 })
