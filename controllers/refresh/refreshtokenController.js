@@ -16,10 +16,10 @@ const refreshTokenController = async (req , res) =>{
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,
         (err , decoded) =>{
-            if(err || userFind.username !== decoded.username) return res.sendStatus(403);
+            if(err || userFind.userID !== decoded.userID) return res.sendStatus(403);
             //create new accessToken 
             const accessToken = jwt.sign(
-                {"username": decoded.username},
+                {"userID": decoded.userID},
                 process.env.ACCESS_TOKEN_SECRET,
                 {expiresIn: '30s'}
             );
