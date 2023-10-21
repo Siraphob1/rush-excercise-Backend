@@ -6,14 +6,6 @@ const userSchema = new Schema({
         type: String, 
         require:true
     },
-    userid:{
-        type: String,
-        default: ''
-    },
-    displayname:{
-        type: String,
-        default:'default'
-    },
     email:{
         type: String, 
         require:true
@@ -22,10 +14,22 @@ const userSchema = new Schema({
         type: String, 
         require:true
     },
-    isverify:{
+    createDate:{
+        type: String, 
+        require:true
+    },
+    userID:{
+        type: String,
+        default: ''
+    },
+    isVerify:{
         type: Boolean, 
         default:false
     },
+    displayName:{
+        type: String,
+        default:'default'
+    },        
     age:{
         type: Number,
         default: 18
@@ -42,13 +46,13 @@ const userSchema = new Schema({
         type: Number,
         default: 18
     },
+    imageURL:{
+        type: String,
+        default: 'default'
+    },
     refreshToken:{
         type: String,
-        default: ''
-    },
-    listActivities:{
-        type: Array,
-        default: []
+        default: 'default'
     }
 });
 
