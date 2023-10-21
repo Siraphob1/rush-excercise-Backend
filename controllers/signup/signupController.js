@@ -6,9 +6,9 @@ const nodemailer = require("nodemailer");
 
 
 const signupController = async (req , res) =>{
-    //username , email and password was attached in request body
-    const {username , email ,password} = req.body;
-    if(!username || !email || !password) return res.status(400).json({"message":"username , email and password are required"});
+    //username , email , password and createDate was attached in request body
+    const {username , email ,password , createDate} = req.body;
+    if(!username || !email || !password || !createDate) return res.status(400).json({"message":"username , email and password are required"});
     
     //check email duplicate in DB
     const queryEmail = {email:email};
@@ -28,9 +28,11 @@ const signupController = async (req , res) =>{
         //create model and saveto DB
         const result = await userModel.create({
             "username": username,
-            "userid": hashUserid,
+            "userID": hashUserid,
             "email":email,
-            "password": hashPassword
+            "password": hashPassword,
+            "createDate": createDate,
+
         });
         // console.log(result)
 
