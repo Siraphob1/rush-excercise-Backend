@@ -24,14 +24,14 @@ const verifyController = async (req , res) =>{
     if(isError) return res.sendStatus(403);
     try {
         //find user
-        const queryUserid = {userid:userid};
+        const queryUserid = {userID:userid};
         const userFind = await userModel.findOne(queryUserid);
         if(!userFind) return res.sendStatus(404)    //not found user
 
         //verify first time ?
-        if(userFind.isverify)   return res.status(409).json({"message": "this email address has already been verify"})
-        const query = {userid: userid};
-        const updateVerify = {isverify: true};
+        if(userFind.isVerify)   return res.status(409).json({"message": "this email address has already been verify"})
+        const query = {userID: userid};
+        const updateVerify = {isVerify: true};
         const resultUpdate = await userModel.findOneAndUpdate(query , updateVerify , {new:true}); 
         const urlVerifySuccess = `${process.env.FRONTENDHOST}`;
         res.status(204).redirect(urlVerifySuccess);
