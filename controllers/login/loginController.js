@@ -22,13 +22,13 @@ const loginController = async (req , res)=>{
 
         //create accessToken for use web while login  
         const accessToken = jwt.sign(
-            {"username": userFind.username},
+            {"userID": userFind.userID},
             process.env.ACCESS_TOKEN_SECRET,
             {expiresIn: '30s'}
         );
         //create refreshToken for use request new accessToken
         const refreshToken = jwt.sign(
-            {"username": userFind.username},
+            {"userID": userFind.userID},
             process.env.REFRESH_TOKEN_SECRET,
             {expiresIn: '30s'}  //1h every 1hour force logout            
         );
