@@ -11,8 +11,8 @@ const readAllActivitiesController = async (req ,res)=>{
     const userAcitivities = await activityModel.find(queryID);
     // console.log(userAcitivities);
 
-    //format  all activities 
-    const getActivities = userAcitivities.map((element)=>{
+    //format  all activities for response
+    const responseActivities = userAcitivities.map((element)=>{
         const activity = {
             activityID: element._id,
             name:element.name,
@@ -28,7 +28,7 @@ const readAllActivitiesController = async (req ,res)=>{
 
     
 
-    res.status(200).json({"your activities":getActivities})
+    res.status(200).json({"your activities":responseActivities})
     // res.status(200)
 }
 
