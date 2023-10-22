@@ -31,7 +31,7 @@ app.use(helmet());
 app.use(cookieParser());
 
 
-//routes public
+//public routes
 app.get('/' , (req,res)=>{
     res.json('Welcome to API RUSH excercise ')
 })
@@ -46,9 +46,9 @@ app.use('/forgotpassword' , require('./routes/forgotpassword.js'));
 // app.use(verifyJWT)
 
 
-//routes private
-app.use('/api/activity' ,verifyJWT , require('./routes/api/activity.js'))
-// app.use('/api/dashboard', require('./routes/api/dashboard.js'))                  not finish
+//private routes
+app.use('/activity'  , require('./routes/api/activity.js'))
+//app.use('/api/dashboard', require('./routes/api/dashboard.js'))                  not finish
 app.use('/profile', require('./routes/profile.js'))
 
 
