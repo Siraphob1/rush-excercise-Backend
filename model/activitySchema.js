@@ -36,5 +36,6 @@ const activitySchema = new Schema({
     }
 });
 
+//collection  =  activityList 
 const activityModel = mongoose.model('activityList', activitySchema);
 module.exports = activityModel;
