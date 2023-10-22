@@ -48,7 +48,7 @@ app.use('/forgotpassword' , require('./routes/forgotpassword.js'));
 
 //private routes
 app.use('/activity'  , require('./routes/api/activity.js'))
-//app.use('/api/dashboard', require('./routes/api/dashboard.js'))                  not finish
+app.use('/dashboard', require('./routes/api/dashboard.js'))                  
 app.use('/profile', require('./routes/profile.js'))
 
 
