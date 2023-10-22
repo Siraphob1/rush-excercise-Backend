@@ -14,6 +14,7 @@ const readAllActivitiesController = async (req ,res)=>{
     //format  all activities 
     const getActivities = userAcitivities.map((element)=>{
         const activity = {
+            activityID: element._id,
             name:element.name,
             description:element.description,
             type:element.type,
@@ -25,7 +26,10 @@ const readAllActivitiesController = async (req ,res)=>{
         return activity;
     })
 
+    
+
     res.status(200).json({"your activities":getActivities})
+    // res.status(200)
 }
 
 module.exports = readAllActivitiesController;
