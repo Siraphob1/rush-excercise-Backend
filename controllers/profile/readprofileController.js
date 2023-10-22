@@ -13,7 +13,8 @@ const readProfileController = async (req , res) =>{
         const userFind = await userModel.findOne(queryuserID);   
         if(!userFind) return res.sendStatus(404);       //not found
 
-        const profileData = {
+        //format userData
+        const userData = {
             imageURL:userFind.imageURL,
             username: userFind.username,
             displayName:userFind.displayName,
@@ -22,7 +23,7 @@ const readProfileController = async (req , res) =>{
             weight:userFind.weight,
             caption:userFind.caption
         }
-        res.status(200).json({"userProfile":profileData});
+        res.status(200).json({"userProfile":userData});
     } catch (error) {        
         res.status(500).json({"error":error.message})
     }
