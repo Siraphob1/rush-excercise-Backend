@@ -3,7 +3,7 @@ const dashboardController = require('../../controllers/dashboard/dashboardContro
 
 const router = express.Router();
 
-router.get('/', dashboardController);
+router.get('/:userID', dashboardController);
 
 
 module.exports = router;
