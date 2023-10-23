@@ -9,10 +9,10 @@ const loginController = async (req , res)=>{
     //find user
     const queryEmail = {email:email};
     const userFind = await userModel.findOne(queryEmail);    
-    if(!userFind) return res.sendStatus(401); //Unauthorized
+    if(!userFind) return res.status(404).json({"message":"this email is not signup"}); //Not found
 
     //user has verify email
-    if(!userFind.isVerify) return res.sendStatus(401); //Unauthorized
+    if(!userFind.isVerify) return res.status(401).json({"message":"this email is not verify, Please verify your email address"}); //Unauthorized
 
     // compare password
     const match = await bcrypt.compare(password , userFind.password);
@@ -40,12 +40,12 @@ const loginController = async (req , res)=>{
         const resultUpdate = await userModel.findOneAndUpdate(query , userUpdate);
         const cookieOption = {httpOnly:true , maxAge: 24 * 60 * 60 * 1000};  //24hour
         res.cookie('jwt', refreshToken , cookieOption );
-        res.json({accessToken});
+        res.status(200).json({accessToken});
     }
 
-    // login failed
     else{
-        res.sendStatus(401);
+        // login failed
+        res.status(401).json({"message":"password is wrong"});
     }
 
 
