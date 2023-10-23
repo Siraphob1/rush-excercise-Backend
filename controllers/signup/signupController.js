@@ -22,7 +22,7 @@ const signupController = async (req , res) =>{
         //check username duplicate in DB
         const queryUsername = {username: username}
         const duplicateUsername = await userModel.findOne(queryUsername);
-        if(duplicateUsername) return res.status(409).json({"message":'This username is already in use.'});
+        if(duplicateUsername) return res.status(409).json({"message":'This username has already been signup'});
 
         //encrypt password and userid
         const hashPassword = await bcrypt.hash(password , 12);
