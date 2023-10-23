@@ -1,10 +1,8 @@
-const whitelists = [
-    'https://www.google.co.th/'
-]
+const allowedOrigins = require("./allowedOrigins");
 
 const corsOptions = {
     origin:(origin , callback)=>{
-        if(whitelists.indexOf(origin) !== -1 || !origin){
+        if(allowedOrigins.indexOf(origin) !== -1 || !origin){
             callback(null,true)
         }
         else{
