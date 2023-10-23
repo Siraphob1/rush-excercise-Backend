@@ -5,6 +5,7 @@ const messageVerifyEmail = require('../../model/email/verifySignup/verifysignup'
 const nodemailer = require("nodemailer");
 
 
+
 const signupController = async (req , res) =>{
     //username , email , password and createDate was attached in request body
     const {username , email ,password , createDate} = req.body;
@@ -28,25 +29,13 @@ const signupController = async (req , res) =>{
         const hashPassword = await bcrypt.hash(password , 12);
         const hashUserid = await bcrypt.hash(username,12);
 
-        //create model and saveto DB
-        const result = await userModel.create({
-            "username": username,
-            "userID": hashUserid,
-            "email":email,
-            "password": hashPassword,
-            "createDate": createDate,
-
-        });
-        // console.log(result)
-
-
+        
         // create JWT
         const emailToken = jwt.sign(
             {"userID": hashUserid},                 //payload
             process.env.EMAIL_TOKEN_SECRET,         //secret key
-            {expiresIn: '60s'}                       //option expire for this Token
-        );
-        // console.log(emailToken);      
+            {expiresIn: '15m'}                       //option token will  expire in 15 minute 
+        );  
         
         
         //create url for Signup verify
@@ -69,20 +58,33 @@ const signupController = async (req , res) =>{
             html:messageVerifyEmail(username , urlVerify)
         }
 
-        //SendMail
-        await transporter.sendMail(mailOptions, function(error, info){
+        //SendMail and handle error
+        transporter.sendMail(mailOptions, function(error, info){
             if (error) {
                 console.log(error);
-                res.status(503).json({'sendestatus': 'failed'});
-            } else {
-                console.log('Email sent: ' + info.response);    
-                res.status(201).json({'sendestatus': username});
-            }
+                res.status(503).json({'sendestatus': 'server can not send email'});
+            } 
+            // else {
+            //     console.log('Email sent: ' + info.response);    
+            // }
         });
 
 
-        // res.status(201).json({"message": `username:${username} signup success`});
+        
+        //create model and saveto DB
+        const result = await userModel.create({
+           "username": username,
+            "userID": hashUserid,
+            "email":email,
+            "password": hashPassword,
+            "createDate": createDate,
+        });
+
+        //create  and savet to DB success
+        res.status(201).json({"message": `username:${username} signup success`});       
+        
     } catch (error) {
+        //server error
         res.status(500).json({"error":error.message})
     }
 
