@@ -4,16 +4,20 @@ const app = express();
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const cookieParser = require('cookie-parser');
+const credentials = require('./config/credentials');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const connectDBCompass = require('./Test/dbConnectCompass');
 const verifyJWT = require('./middlewares/verifyJWT');
+
 
 const port = process.env.PORT || 3500;
 
 // Connect to MongoDB
 connectDBCompass();
 
+//handle credential check before CORS
+app.use(credentials)
 
 //3rd middlewares for Cross-origin resource sharing website
 app.use(cors(corsOptions));
@@ -47,9 +51,9 @@ app.use('/forgotpassword' , require('./routes/forgotpassword.js'));
 
 
 //private routes
-app.use('/activity'  , require('./routes/api/activity.js'))
-app.use('/dashboard', require('./routes/api/dashboard.js'))                  
-app.use('/profile', require('./routes/profile.js'))
+app.use('/api/activity'  , require('./routes/api/activity.js'))
+app.use('/api/dashboard', require('./routes/api/dashboard.js'))                  
+app.use('/api/profile', require('./routes/api/profile.js'))
 
 
 //route not found
