@@ -8,7 +8,7 @@ const loginController = async (req , res)=>{
    
     //find user
     const queryEmail = {email:email};
-    const userFind = await userModel.findOne(queryEmail);    
+    const userFind = await userModel.findOne(queryEmail);       
     if(!userFind) return res.status(404).json({"message":"this email is not signup"}); //Not found
 
     //user has verify email
@@ -24,13 +24,13 @@ const loginController = async (req , res)=>{
         const accessToken = jwt.sign(
             {"userID": userFind.userID},
             process.env.ACCESS_TOKEN_SECRET,
-            {expiresIn: '30s'}
+            {expiresIn: '30m'}
         );
         //create refreshToken for use request new accessToken
         const refreshToken = jwt.sign(
             {"userID": userFind.userID},
             process.env.REFRESH_TOKEN_SECRET,
-            {expiresIn: '30s'}  //1h every 1hour force logout            
+            {expiresIn: '3h'}  //3h every 3hour force logout            
         );
         //console.log(refreshToken)
 
@@ -38,7 +38,7 @@ const loginController = async (req , res)=>{
         const query = {email: email};
         const userUpdate = {refreshToken:`${refreshToken}`};
         const resultUpdate = await userModel.findOneAndUpdate(query , userUpdate);
-        const cookieOption = {httpOnly:true , maxAge: 24 * 60 * 60 * 1000};  //24hour
+        const cookieOption = {httpOnly:true , maxAge: 24 * 60 * 60 * 1000 ,sameSite:'None' , secure:true};  //24hour
         res.cookie('jwt', refreshToken , cookieOption );
         res.status(200).json({accessToken});
     }
