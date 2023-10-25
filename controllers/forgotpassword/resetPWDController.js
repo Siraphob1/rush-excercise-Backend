@@ -7,7 +7,7 @@ const resetPWDController = async (req ,res) =>{
     
     //newpassword was attached in request body
     const {newpassword} = req.body;
-    if(!newpassword) return res.sendStatus(400)
+    if(!newpassword) return res.sendStatus(400) 
 
     //emailToken was attached in request query
     const {token} = req.query;
@@ -43,10 +43,8 @@ const resetPWDController = async (req ,res) =>{
         const hashNewPassword = await bcrypt.hash(newpassword , 12);
 
         //update password
-        const updatePassword = {password: hashNewPassword};
-        // console.log(`oldpassword: ${userFind.password}`);        
+        const updatePassword = {password: hashNewPassword};     
         const resultUpdate = await userModel.findOneAndUpdate(queryUserid , updatePassword , {new:true}); 
-        // console.log(`newpassword: ${resultUpdate.password}`);
         res.sendStatus(204);    //ok no content return
 
     } catch (error) {   
