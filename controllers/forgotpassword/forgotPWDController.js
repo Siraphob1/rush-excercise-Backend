@@ -20,7 +20,7 @@ const forgotPWDController = async (req ,res) =>{
         const emailToken = jwt.sign(
             {"userID": userFind.userID},                 //payload
             process.env.EMAIL_TOKEN_SECRET,         //secret key
-            {expiresIn: '60s'}                       //option expire for this Token
+            {expiresIn: '15m'}                       //option expire for this Token
         );
 
         // create url ResetForgotpassword
@@ -50,8 +50,8 @@ const forgotPWDController = async (req ,res) =>{
                 res.status(503).json({'sendestatus': 'failed'});
             } else {
                 console.log('Email sent: ' + info.response);    
-                // res.status(200).json({'sendestatus': urlResetForgotpassword});
-                res.status(200).json({'sendestatus': emailToken});
+                res.sendStatus(204);
+                // res.status(200).json({'sendestatus': emailToken});
             }
         });
 
