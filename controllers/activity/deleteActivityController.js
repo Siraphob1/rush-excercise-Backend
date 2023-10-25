@@ -2,8 +2,8 @@ const activityModel = require('../../model/activitySchema');
 
 const deleteActivityController = async (req ,res) =>{
 
-    //userID was not attached in req body
-    const {userID} = req.params
+    //userID was not attached in req query
+    const {userID} = req.query;
     if(!userID) return res.status(400).json({"error":"bad request"});
 
     //activityID was not attached in req query

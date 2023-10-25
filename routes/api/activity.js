@@ -8,16 +8,16 @@ const deleteActivityController = require('../../controllers/activity/deleteActiv
 
 
 //read activities
-router.get('/:userID',readAllActivitiesController)
+router.get('/',readAllActivitiesController)
 
 //create activity
-router.post('/:userID', createActivityController);
+router.post('/', createActivityController);
 
 //update activity
-router.put('/:userID', updateActivityController);
+router.put('/', updateActivityController);
 
 //delete activity
-router.delete('/:userID', deleteActivityController)
+router.delete('/', deleteActivityController)
 
 
 module.exports = router;

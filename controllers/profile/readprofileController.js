@@ -2,8 +2,8 @@ const userModel = require('../../model/userSchema');
 
 const readProfileController = async (req , res) =>{
 
-    //userIDwas attached in request params
-    const {userID} = req.params;
+    //userIDwas attached in request query
+    const {userID} = req.query;
     if(!userID) return res.sendStatus(400);
 
     try {

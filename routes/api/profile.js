@@ -5,7 +5,7 @@ const updateProfileController = require('../../controllers/profile/updateProfile
 const router = express.Router();
 
 
-router.get('/:userID', readProfileController);
-router.put('/:userID', updateProfileController);
+router.get('/', readProfileController);
+router.put('/', updateProfileController);
 
 module.exports = router

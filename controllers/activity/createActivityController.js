@@ -3,8 +3,8 @@ const userModel = require('../../model/userSchema');
 
 const createActivityController = async (req , res) =>{
     
-    //userID was not attached in req params
-    const {userID} = req.params;
+    //userID was not attached in req query
+    const {userID} = req.query;
     if(!userID) return res.status(400).json({"error":"bad request"});
 
     //name , description , type , startDate , endDate and createDate was not attached in req body
