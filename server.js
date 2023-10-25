@@ -46,14 +46,13 @@ app.use('/logout', require('./routes/logout.js'));
 app.use('/forgotpassword' , require('./routes/forgotpassword.js'));
 
 
-//custom middlewares for check JWT 
-// app.use(verifyJWT)
+
 
 
 //private routes
-app.use('/api/activity'  , require('./routes/api/activity.js'))
-app.use('/api/dashboard', require('./routes/api/dashboard.js'))                  
-app.use('/api/profile', require('./routes/api/profile.js'))
+app.use('/api/activity'  ,verifyJWT , require('./routes/api/activity.js'))
+app.use('/api/dashboard',verifyJWT , require('./routes/api/dashboard.js'))                  
+app.use('/api/profile',verifyJWT , require('./routes/api/profile.js'))
 
 
 //route not found
