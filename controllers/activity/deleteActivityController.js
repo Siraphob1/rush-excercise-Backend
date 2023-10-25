@@ -10,6 +10,8 @@ const deleteActivityController = async (req ,res) =>{
     const {activityID} = req.query;
     if(!activityID) return res.status(400).json({"error":"bad request"});
 
+    const {status} = req.body;
+    // console.log(status)
     
     try {
         //find activity and update in DB
