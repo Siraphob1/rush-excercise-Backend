@@ -29,8 +29,8 @@ const updateProfileController = async (req , res) =>{
         const queryuserID = {userID:userID};
         const userFind = await userModel.findOne(queryuserID);
         if(!userFind) return res.sendStatus(404);
-        console.log("before update");
-        console.log(userFind);
+        // console.log("before update");
+        // console.log(userFind);
 
         //format data for updateData user         
         const updateUserData = {
