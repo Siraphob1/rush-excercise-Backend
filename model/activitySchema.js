@@ -37,5 +37,5 @@ const activitySchema = new Schema({
 });
 
 //collection  =  activityList 
-const activityModel = mongoose.model('activityList', activitySchema);
+const activityModel = mongoose.model('activitylists', activitySchema);
 module.exports = activityModel;
