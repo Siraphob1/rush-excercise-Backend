@@ -35,7 +35,7 @@ const messageResetPWDEmail = (username , urlResetForgotpassword) =>{
                       <tbody>
                         <tr>
                           <td style="line-height: 24px; font-size: 16px; padding-left: 16px; margin: 0;" align="left">
-                            <h4 class="fw-500" style="padding-top: 0; padding-bottom: 0; font-weight: 500 !important; vertical-align: baseline; font-size: 24px; line-height: 28.8px; margin: 0;" align="left">Hello , ${username}</h4>
+                            <h4 class="fw-500" style="padding-top: 0; padding-bottom: 0; font-weight: 500 !important; vertical-align: baseline; font-size: 24px; line-height: 28.8px; margin: 0;" align="left">Hello, ${username}</h4>
                           </td>
                         </tr>
                       </tbody>
