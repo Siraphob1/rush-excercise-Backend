@@ -6,7 +6,7 @@ const refreshTokenController = async (req , res) =>{
     if(!cookies?.jwt) return res.sendStatus(401);
     // console.log(cookies);
     const refreshToken = cookies.jwt;
-
+    //console.log(refreshToken)
      //find user
      const queryrefreshToken = {refreshToken:refreshToken};
      const userFind = await userModel.findOne(queryrefreshToken);    
@@ -21,7 +21,7 @@ const refreshTokenController = async (req , res) =>{
             const accessToken = jwt.sign(
                 {"userID": decoded.userID},
                 process.env.ACCESS_TOKEN_SECRET,
-                {expiresIn: '30s'}
+                {expiresIn: '30m'}
             );
             res.status(200).json({accessToken});    
         }
