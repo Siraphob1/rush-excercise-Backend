@@ -28,7 +28,7 @@ const readAllActivitiesController = async (req ,res)=>{
 
     
 
-    res.status(200).json({"your activities":responseActivities})
+    res.status(200).json({"activitiesList":responseActivities})
     // res.status(200)
 }
 
