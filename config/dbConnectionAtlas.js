@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // must set url mongoDB Atlas
-const urlDB = '';
+const urlDB = process.env.DATABASE_URI;
 
 const connectDBAtlas = async () => {
     try {
