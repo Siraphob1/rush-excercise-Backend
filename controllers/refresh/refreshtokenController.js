@@ -21,7 +21,7 @@ const refreshTokenController = async (req , res) =>{
             const accessToken = jwt.sign(
                 {"userID": decoded.userID},
                 process.env.ACCESS_TOKEN_SECRET,
-                {expiresIn: '30m'}
+                {expiresIn: '30m'}  //30m 
             );
             res.status(200).json({accessToken});    
         }
