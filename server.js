@@ -9,12 +9,14 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const connectDBCompass = require('./Test/dbConnectCompass');
 const verifyJWT = require('./middlewares/verifyJWT');
+const connectDBAtlas = require('./config/dbConnectionAtlas');
 
 
 const port = process.env.PORT || 3500;
 
 // Connect to MongoDB
-connectDBCompass();
+//connectDBCompass();
+connectDBAtlas();
 
 //handle credential check before CORS
 app.use(credentials)
@@ -44,19 +46,16 @@ app.use('/login', require('./routes/login.js'));
 app.use('/refresh' , require('./routes/refresh.js'));
 app.use('/logout', require('./routes/logout.js'));
 app.use('/forgotpassword' , require('./routes/forgotpassword.js'));
-
-
-
-
-
+app.use(verifyJWT)
 //private routes
-app.use('/api/activity'  ,verifyJWT , require('./routes/api/activity.js'))
-app.use('/api/dashboard',verifyJWT , require('./routes/api/dashboard.js'))                  
-app.use('/api/profile',verifyJWT , require('./routes/api/profile.js'))
+app.use('/api/activity'  ,verifyJWT  , require('./routes/api/activity.js'))
+app.use('/api/dashboard', verifyJWT , require('./routes/api/dashboard.js'))                  
+app.use('/api/profile',verifyJWT ,  require('./routes/api/profile.js'))
 
 
 //route not found
 app.use('/', require('./routes/notfound.js'));
+
 
 //start server when connect DB success
 mongoose.connection.once('open', ()=>{
