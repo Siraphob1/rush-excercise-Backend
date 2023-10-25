@@ -11,7 +11,7 @@ const logoutController = async (req ,res) =>{
     const queryrefreshToken = {refreshToken , refreshToken};
     const userFind = await userModel.findOne(queryrefreshToken);
     if(!userFind){
-        res.clearCookie('jwt', {httpOnly: true});
+        res.clearCookie('jwt', {httpOnly: true ,sameSite:'None' , secure:true});
         return res.sendStatus(204);
     }
 
@@ -19,7 +19,7 @@ const logoutController = async (req ,res) =>{
     const userUpdate = {refreshToken: ''}
     const resultUpdate = await userModel.findOneAndUpdate(queryrefreshToken , userUpdate);
 
-    res.clearCookie('jwt', {httpOnly: true});
+    res.clearCookie('jwt', {httpOnly: true ,sameSite:'None' , secure:true});
     res.sendStatus(204);
    
 }
