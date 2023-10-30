@@ -1,7 +1,7 @@
 const activityModel = require('../../model/activitySchema');
 
 const readAllActivitiesController = async (req ,res)=>{
-    console.log('this route')
+    // console.log('this route')
     //userID was not attached in req query
     const {userID} = req.query;
     if(!userID) return res.status(400).json({"error":"bad request"});
@@ -9,7 +9,7 @@ const readAllActivitiesController = async (req ,res)=>{
     //get all acitivities from DB
     const queryID = {userID:userID}
     const userAcitivities = await activityModel.find(queryID);
-    console.log(userAcitivities);
+    //console.log(userAcitivities);
 
     //format  all activities for response
     const responseActivities = userAcitivities.map((element)=>{
